@@ -97,12 +97,12 @@ class CallbackModule(CallbackBase):
         if self.db_import:
             try:
                 self.es = self.elasticsearch.Elasticsearch(self.es_address, timeout=self.timeout)
-            except Exception, e:
+            except Exception as e:
                 logging.error("Failed to connect elasticsearch server '%s'. Exception = %s " % (self.es_address, e))
                 return False
             try:
                 return self.es.ping()
-            except Exception, e:
+            except Exception as e:
                 logging.error("Failed to get ping from elasticsearch server '%s'. Exception = %s " % (self.es_address, e))
                 return False
 
@@ -115,7 +115,7 @@ class CallbackModule(CallbackBase):
                 result = self.helpers.helpers.bulk(self.es, self.run_output,index=self.index_name)
                 if result:
                     return True
-            except Exception, e:
+            except Exception as e:
                 logging.error("Inserting data into elasticsearch 'failed' because %s" % e)
         return False
 
